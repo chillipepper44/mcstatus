@@ -1,12 +1,12 @@
 services:
   - type: web
-    name: mc-server-status-web
+    name: mc-status-web
     env: python
     buildCommand: "pip install -r requirements.txt"
     startCommand: "python app.py"
 
   - type: worker
-    name: mc-server-updater
+    name: mc-status-updater
     env: python
     buildCommand: "pip install -r requirements.txt"
     startCommand: "python updater.py"
