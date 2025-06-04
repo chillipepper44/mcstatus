@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minecraft Server Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      background: #121212;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.6);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .status-indicator {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .online {
+      color: #00ff90;
+    }
+    .offline {
+      color: #ff5252;
+    }
+    .line {
+      margin: 10px 0;
+      font-size: 16px;
+      word-wrap: break-word;
+    }
+    .ip-box {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .copy-btn {
+      padding: 6px 12px;
+      background: #00c389;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    @media screen and (max-width: 480px) {
+      .line {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🟢 Minecraft Server Status</h1>
+
+    <div class="status-indicator {{ 'online' if is_online else 'offline' }}">
+      {% if is_online %}
+        ✅ Server Online
+      {% else %}
+        ❌ Server Offline
+      {% endif %}
+    </div>
+
+    <div class="ip-box">
+      🔌 IP: <span id="server-ip">{{ server_ip }}</span>
+      <button class="copy-btn" onclick="copyIP()">📋 Copy</button>
+      <span id="copied-msg" style="margin-left: 10px; color: #55ff55; display: none;">✔ Copied!</span>
+    </div>
+
+    {% for line in lines %}
+      {% if 'MOTD:' in line %}
+        <div class="line"><strong>MOTD:</strong> {{ format_motd(line.split('MOTD:')[1]) }}</div>
+      {% else %}
+        <div class="line">{{ line | safe }}</div>
+      {% endif %}
+    {% endfor %}
+
+    <hr style="margin: 20px 0; border: none; border-top: 1px solid #444;">
+
+    <h3>📌 Server Information</h3>
+    <div class="line" style="white-space: pre-line;">{{ note | urlize }}</div>
+  </div>
+
+  <script>
+    function copyIP() {
+      const ip = document.getElementById("server-ip").textContent.trim();
+      navigator.clipboard.writeText(ip).then(() => {
+        const msg = document.getElementById("copied-msg");
+        msg.style.display = "inline";
+        setTimeout(() => msg.style.display = "none", 2000);
+      });
+    }
+  </script>
+</body>
+</html>
