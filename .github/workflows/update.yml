@@ -2,7 +2,7 @@ name: Auto Update Server Status
 
 on:
   schedule:
-    - cron: "*/5 * * * *"  # รันทุก 5 นาที
+    - cron: "* * * * *"  # ทุก 1 นาที
   workflow_dispatch:
 
 jobs:
