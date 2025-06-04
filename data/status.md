@@ -2,7 +2,7 @@
 
 🖥 Server: chillipepper.thddns.net:2000
 👥 Players Online: 0
-📶 Latency: 24.79609998408705 ms
+📶 Latency: 25.417099939659238 ms
 📝 MOTD: §9Beyond Depth Ver 10.9.7§r
 §7Powerd By ChilliPepper :3§r
-⏰ Last Checked: 2025-06-04 22:57:37
+⏰ Last Checked: 2025-06-04 22:58:40
